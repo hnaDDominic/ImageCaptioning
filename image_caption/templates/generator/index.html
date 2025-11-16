@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Caption Generator</title>
+    <link rel="stylesheet" href="{% static 'generator/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="notification-container" class="notification-container"></div>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-robot logo-icon"></i>
+                    <h1 class="app-title">AI Image Caption Generator</h1>
+                </div>
+                <p class="app-subtitle">Upload an image and get AI-generated captions. Help improve our model by providing feedback!</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="upload-section card">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload Image</h2>
+                <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+                    {% csrf_token %}
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <input type="file" name="image" id="imageInput" accept="image/*" required style="display: none;">
+                        <div class="upload-placeholder" onclick="document.getElementById('imageInput').click()">
+                            <i class="fas fa-images upload-icon"></i>
+                            <h3>Choose an Image</h3>
+                            <p>Supported formats: JPG, PNG, JPEG (Max 5MB)</p>
+                        </div>
+                        <div class="upload-preview" id="uploadPreview" style="display: none;">
+                            <img id="imagePreview" src="" alt="Preview">
+                            <button type="button" class="change-image-btn" onclick="document.getElementById('imageInput').click()">
+                                <i class="fas fa-sync-alt"></i> Change Image
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="generate-btn" id="generateBtn" disabled>
+                        <i class="fas fa-magic"></i>
+                        Generate Caption
+                    </button>
+                </form>
+            </section>
+
+            {% if uploaded_file_url %}
+            <section class="results-section">
+                <div class="image-preview card">
+                    <h2><i class="fas fa-image"></i> Image Preview</h2>
+                    <div class="preview-container">
+                        <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="preview-image">
+                    </div>
+                </div>
+
+                {% if caption %}
+                <div class="caption-results card">
+                    <h2><i class="fas fa-comment-alt"></i> Generated Caption</h2>
+                    <div class="caption-container">
+                        <div class="caption-text" id="generatedCaptionText">"{{ caption }}"</div> 
+                        <div class="caption-actions">
+                            <button class="action-btn copy-btn" onclick="copyToClipboard('{{ caption|escapejs }}')">
+                                <i class="fas fa-copy"></i> Copy Text
+                            </button>
+                            
+                            <div class="feedback-section">
+                                <h4>Help Improve Our AI Model</h4>
+                                <div class="feedback-buttons">
+                                    <button class="action-btn approve-btn" onclick="submitFeedback('approve', '{{ saved_image_id }}')">
+                                        <i class="fas fa-check-circle"></i> Approve Caption
+                                    </button>
+                                    <button class="action-btn correct-btn" onclick="showCorrectionModal('{{ saved_image_id }}', '{{ caption|escapejs }}')">
+                                        <i class="fas fa-edit"></i> Correct Caption
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+            {% endif %}
+
+            {% if not model_loaded %}
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>System Notice:</strong> AI model is currently unavailable. Please try again later.
+            </div>
+            {% endif %}
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-actions">
+                <a href="{% url 'statistics_dashboard' %}" class="nav-btn">
+                    <i class="fas fa-chart-bar"></i> View Statistics
+                </a>
+
+            </div>
+        </footer>
+    </div>
+
+    <div id="correctionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Correct Caption</h3>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Your corrections help train and improve our AI model.</p>
+                <form id="correctionForm">
+                    {% csrf_token %} 
+                    <input type="hidden" id="correctionImageId">
+                    <div class="form-group">
+                        <label for="userCaption">Correct Caption:</label>
+                        <textarea id="userCaption" rows="3" placeholder="Enter the accurate caption for this image..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="datasetPurpose">Use for:</label>
+                        <select id="datasetPurpose">
+                            <option value="train">Model Training</option>
+                            <option value="val">Model Validation</option>
+                            <option value="test">Model Testing</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn-primary" onclick="submitCorrection()">
+                    <i class="fas fa-save"></i> Save Correction
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

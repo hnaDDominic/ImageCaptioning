@@ -1,0 +1,305 @@
+:root {
+    --primary-color: #6366f1; /* Indigo */
+    --primary-dark: #4f46e5;
+    --secondary-color: #f1f5f9; /* Light gray */
+    --text-primary: #1f2937; /* Dark gray */
+    --text-secondary: #6b7280; /* Medium gray */
+    --success-color: #34d399; /* Green */
+    --warning-color: #fcd34d; /* Yellow */
+    --border-color: #e5e7eb; /* Đường viền */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Base & Typography */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: var(--text-primary);
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+/* Header & Nav Styles */
+.app-header {
+    background: white;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.app-header .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+.logo-section { display: flex; align-items: center; margin-bottom: 0.5rem; }
+.logo-icon { font-size: 1.8rem; color: var(--primary-color); margin-right: 0.5rem; }
+.app-title { font-size: 1.5rem; font-weight: 700; margin: 0; }
+.app-subtitle { color: var(--text-secondary); margin-bottom: 1rem; }
+.generate-btn { /* Style cho nút quay lại */
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    gap: 0.5rem;
+}
+.generate-btn:hover { background-color: var(--primary-dark); }
+
+/* --- 1. Refined Stat Cards Layout (Gọn gàng) --- */
+.stat-card {
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px; /* Giữ chiều cao cố định để tiết kiệm diện tích */
+    overflow: hidden;
+    background: white;
+    border: 1px solid var(--border-color);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Indicators (Đường chỉ báo màu dọc bên trái) */
+.bg-primary-light { border-left: 4px solid var(--primary-color); }
+.bg-success-light { border-left: 4px solid var(--success-color); }
+.bg-warning-light { border-left: 4px solid var(--warning-color); }
+.bg-info-light { border-left: 4px solid #0ea5e9; }
+
+/* Icon Styling */
+.stat-icon {
+    font-size: 2.2rem;
+    margin: 0;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Custom Colors cho Icon backgrounds */
+.stat-card.bg-primary-light .stat-icon { color: var(--primary-color); background-color: rgba(99, 102, 241, 0.1); }
+.stat-card.bg-success-light .stat-icon { color: var(--success-color); background-color: rgba(52, 211, 153, 0.1); }
+.stat-card.bg-warning-light .stat-icon { color: var(--warning-color); background-color: rgba(251, 191, 36, 0.1); }
+.stat-card.bg-info-light .stat-icon { color: #0ea5e9; background-color: rgba(14, 165, 233, 0.1); }
+
+
+/* Data Presentation */
+.stat-content {
+    text-align: left;
+    flex-grow: 1;
+    padding-left: 1rem;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+
+/* --- 2. Table and List Styles --- */
+.table-responsive {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    background: white;
+}
+
+.table thead th {
+    font-weight: 600;
+    background-color: var(--secondary-color);
+    color: var(--text-primary);
+    padding: 1rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody tr:hover {
+    background-color: #f6f8fa;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.image-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.caption-text {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Badge (Dùng cho Trạng thái và Dataset) */
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+.badge.bg-warning-light { background-color: #fffbeb; color: var(--warning-color); border: 1px solid #fcd34d; }
+.badge.bg-success-light { background-color: #ecfdf5; color: var(--success-color); border: 1px solid #34d399; }
+.badge.bg-info-light { background-color: #e0f2fe; color: #0ea5e9; border: 1px solid #67e8f9; }
+.badge.bg-primary-light { background-color: #eef2ff; color: var(--primary-color); border: 1px solid #a5b4fc; }
+
+
+/* --- 3. Pagination Styles --- */
+.pagination-container {
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination-link {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.pagination-link:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--primary-color);
+}
+
+.pagination-current {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 5px rgba(99, 102, 241, 0.3);
+}
+
+.pagination-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    background-color: #f1f5f9;
+    color: var(--text-secondary);
+    border: 1px solid #e2e8f0;
+}
+
+/* --- 4. Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    .pagination-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .pagination-link, .pagination-current {
+        width: 100%;
+        text-align: center;
+    }
+}
+.analys{
+    display: flex;
+}
+/* Container cho các thẻ thống kê */
+.row.g-4.mb-5 {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các mục xuống dòng nếu cần */
+    margin-left: -0.5rem; /* Bù trừ khoảng cách (g-4) */
+    margin-right: -0.5rem;
+}
+
+/* Các thẻ div con (col-lg-3) */
+.col-12.col-md-6.col-lg-3 {
+    /* Đảm bảo chiếm 25% chiều ngang TRÊN MỌI MÀN HÌNH (Nếu bạn muốn bỏ responsive) */
+    width: 25%;
+    padding: 0.5rem; /* Khoảng cách giữa các thẻ (tương ứng g-4) */
+    box-sizing: border-box; 
+}
+
+/* Nếu bạn chỉ muốn 25% cho màn hình lớn, nhưng muốn nó hoạt động ngay */
+@media (min-width: 992px) { /* Màn hình Large (lg) trở lên */
+    .col-12.col-md-6.col-lg-3 {
+        width: 25%;
+    }
+}
+
+/* Dùng cho màn hình di động (mỗi thẻ 100%) */
+@media (max-width: 768px) {
+    .col-12.col-md-6.col-lg-3 {
+        width: 100%;
+    }
+}
