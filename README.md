@@ -62,8 +62,8 @@
 
 ### Bước 1: Clone repository
 ```bash
-git clone [https://github.com/hnaDDominic/ImageCaptioning].git
-cd image-caption-generator
+git clone https://github.com/hnaDDominic/ImageCaptioning.git
+cd ImageCaptioning
 ```
 
 ### Bước 2: Thiết lập và kích hoạt môi trường ảo
