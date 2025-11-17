@@ -62,7 +62,7 @@
 
 ### Bước 1: Clone repository
 ```bash
-git clone https://github.com/your-username/image-caption-generator.git
+git clone [https://github.com/hnaDDominic/ImageCaptioning].git
 cd image-caption-generator
 ```
 
